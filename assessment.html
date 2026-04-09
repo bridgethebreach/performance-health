@@ -1,0 +1,648 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.cover{text-align:center;padding:2.5rem 1rem 2rem}
+.cover h1{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:.6rem;line-height:1.4}
+.cover p{font-size:15px;color:var(--color-text-secondary);line-height:1.7;max-width:480px;margin:0 auto 1.5rem}
+.tag{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem}
+.brand-top{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:1.25rem;letter-spacing:.01em}
+.start-btn{background:var(--color-text-primary);color:var(--color-background-primary);border:none;padding:13px 36px;border-radius:var(--border-radius-md);font-size:15px;cursor:pointer;font-weight:500}
+.start-btn:hover{opacity:.85}
+.free-note{font-size:12px;color:var(--color-text-secondary);margin-top:.75rem}
+.pb-wrap{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-bottom:1.75rem}
+.pb{height:4px;background:var(--color-text-primary);border-radius:2px;transition:width .35s}
+.sec-label{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem}
+.q-text{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:1.1rem;line-height:1.6}
+.scenario{font-size:14px;color:var(--color-text-secondary);background:var(--color-background-secondary);border-left:3px solid var(--color-border-secondary);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:10px 14px;margin-bottom:1.25rem;line-height:1.7}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;background:var(--color-background-primary);transition:all .15s}
+.opt:hover{border-color:var(--color-text-primary);background:var(--color-background-secondary)}
+.opt.sel{border-color:var(--color-text-primary);background:var(--color-background-secondary)}
+.radio{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--color-border-primary);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.opt.sel .radio{background:var(--color-text-primary);border-color:var(--color-text-primary)}
+.opt.sel .radio::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--color-background-primary)}
+.opt-txt{font-size:14px;color:var(--color-text-primary);line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem}
+.nbtn{padding:10px 22px;border-radius:var(--border-radius-md);font-size:14px;cursor:pointer;font-weight:500}
+.pbtn{background:transparent;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary)}
+.pbtn:hover{background:var(--color-background-secondary)}
+.nxbtn{background:var(--color-text-primary);border:none;color:var(--color-background-primary)}
+.nxbtn:hover{opacity:.85}
+.nxbtn:disabled{opacity:.3;cursor:not-allowed}
+.qcnt{font-size:13px;color:var(--color-text-secondary)}
+.lead-form{padding:.5rem 0}
+.lead-form h2{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:.4rem}
+.lead-sub{font-size:14px;color:var(--color-text-secondary);margin-bottom:1.5rem;line-height:1.65}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:.35rem}
+.field input{width:100%;padding:10px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;color:var(--color-text-primary);background:var(--color-background-primary)}
+.field input:focus{outline:none;border-color:var(--color-text-primary)}
+.field input::placeholder{color:var(--color-text-secondary);opacity:.6}
+.submit-btn{width:100%;padding:12px;background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);font-size:15px;font-weight:500;cursor:pointer;margin-top:.5rem}
+.submit-btn:hover{opacity:.85}
+.privacy{font-size:12px;color:var(--color-text-secondary);text-align:center;margin-top:.75rem;line-height:1.6}
+.err{font-size:12px;color:#A32D2D;margin-top:.3rem}
+.rpage{padding:.5rem 0}
+.rpage h2{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:.3rem}
+.rsub{font-size:14px;color:var(--color-text-secondary);margin-bottom:1.5rem;line-height:1.6}
+.overall-card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1.25rem}
+.sring{width:70px;height:70px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.snum{font-size:22px;font-weight:500}
+.slbl{font-size:11px;color:var(--color-text-secondary)}
+.otxt{font-size:14px;color:var(--color-text-primary);line-height:1.7}
+.dim-list{display:flex;flex-direction:column;gap:9px;margin-bottom:1.25rem}
+.dc{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:11px 14px}
+.dtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.dname{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.dbadge{font-size:12px;padding:2px 9px;border-radius:99px;font-weight:500}
+.barbg{height:5px;background:var(--color-border-tertiary);border-radius:3px}
+.barfill{height:5px;border-radius:3px}
+.dnote{font-size:12px;color:var(--color-text-secondary);margin-top:5px;line-height:1.55}
+.daction{font-size:12px;color:var(--color-text-primary);margin-top:6px;padding:7px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);line-height:1.55;border-left:2px solid var(--color-border-secondary)}
+.daction-lbl{font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);display:block;margin-bottom:2px}
+.cta-box{border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;text-align:center;margin-top:.5rem}
+.cta-box h3{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:.4rem}
+.cta-box p{font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;line-height:1.6}
+.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta-pri{background:var(--color-text-primary);color:var(--color-background-primary);border:none;padding:10px 22px;border-radius:var(--border-radius-md);font-size:14px;cursor:pointer;font-weight:500}
+.cta-pri:hover{opacity:.85}
+.cta-sec{background:transparent;color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);padding:10px 22px;border-radius:var(--border-radius-md);font-size:14px;cursor:pointer;font-weight:500}
+.cta-sec:hover{background:var(--color-background-secondary)}
+.rfooter{margin-top:1.5rem;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);text-align:center}
+.rfooter-name{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:.3rem}
+.rfooter-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.65;margin-bottom:.3rem;max-width:500px;margin-left:auto;margin-right:auto}
+.rfooter-contact{font-size:12px;color:var(--color-text-secondary)}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+const SHEET_URL="https://script.google.com/macros/s/AKfycbz5Rq3QcMeJi19uEgr-WK1jWlwWuYJo5DDZ3m4sFQOuQV5mdJ43s6ZnIXMzKlVQfN4Q/exec";
+const CO_EMAIL="hello@bridgethebreach.com";
+const CO_NAME="Bridge the Breach";
+const CO_DESC="We help organizations build the conditions for sustained high performance and also develop the people who work within those conditions. We do this through performance consulting, competency development and corporate training.";
+const CO_WEB="www.bridgethebreach.com";
+
+const sections=[
+  {id:"vision",      label:"Direction and Purpose"},
+  {id:"leadership",  label:"Leadership in Action"},
+  {id:"roles",       label:"Role Clarity"},
+  {id:"resources",   label:"Resources and Tools"},
+  {id:"innovation",  label:"Innovation and Engagement"},
+  {id:"profdev",     label:"Professional Development and Welfare"},
+  {id:"standards",   label:"Performance Standards"},
+  {id:"tracking",    label:"Measurement and Follow-Through"},
+  {id:"consequences",label:"Recognition and Accountability"}
+];
+
+const questions=[
+  {sid:"vision",
+   scenario:"Think about how your organization's vision, mission, and goals are communicated to your team.",
+   text:"How often do you intentionally remind your team of why this organization exists, where it is headed, and what success looks like for everyone?",
+   opts:[
+    {t:"Only during onboarding when a new person joins the team",sc:1},
+    {t:"During annual or half-year reviews when we reflect on performance",sc:2},
+    {t:"Regularly throughout the year in team meetings, briefings, and one-on-one conversations",sc:4},
+    {t:"We have not had a structured way of doing this",sc:0}
+   ]
+  },
+  {sid:"vision",
+   scenario:"A staff member who has been with you for six months bumps into a professional contact at an industry event. The contact asks what the company does and where it is headed.",
+   text:"Based on how you currently communicate direction and purpose in your organization, what is that staff member most likely to say?",
+   opts:[
+    {t:"A clear, confident description of what the company is building and why it matters",sc:4},
+    {t:"Something general about your industry or the services you offer, without a clear sense of the bigger picture",sc:2},
+    {t:"Something vague that reflects uncertainty about where the company is headed",sc:1},
+    {t:"They would redirect the conversation and avoid speaking on behalf of the company",sc:0}
+   ]
+  },
+  {sid:"vision",
+   scenario:"Your team is going through a difficult stretch. A major project did not deliver the expected results and energy is low.",
+   text:"In that kind of moment, what does your team currently have to hold onto beyond just completing their tasks?",
+   opts:[
+    {t:"Mostly just their individual job responsibilities and their personal commitment to their work",sc:2},
+    {t:"A compelling reason for why we do what we do, that people genuinely believe in and find motivating",sc:4},
+    {t:"Honestly, I am not sure what would hold people together beyond just waiting it out",sc:0},
+    {t:"The relationships they have with colleagues, more than any shared sense of direction",sc:1}
+   ]
+  },
+  {sid:"leadership",
+   scenario:"You set a new expectation for your team. Perhaps that all reports must be submitted by Friday noon, or that meetings must start on time.",
+   text:"What has your team typically observed from you in relation to that same standard?",
+   opts:[
+    {t:"I have not thought about whether I model what I ask of my team",sc:0},
+    {t:"I apply the same standard to myself consistently and my team sees me lead it",sc:4},
+    {t:"I have not been consistent. The expectation is clearer for the team than it is lived by me",sc:1},
+    {t:"I follow it most of the time, though there are moments I fall short of what I expect of others",sc:3}
+   ]
+  },
+  {sid:"leadership",
+   scenario:"You made a decision that did not go well. Maybe a client commitment was not met, a project overran, or a call you made turned out to be wrong.",
+   text:"What does your team typically see from you when something like that happens?",
+   opts:[
+    {t:"I own it clearly, say what happened, and show the team what I am doing differently going forward",sc:4},
+    {t:"I tend to move on quickly and refocus the team on what comes next without naming the error directly",sc:2},
+    {t:"Different leaders in our organization handle this differently. There is no consistent approach",sc:1},
+    {t:"These things are not usually discussed openly at leadership level",sc:0}
+   ]
+  },
+  {sid:"leadership",
+   scenario:"Consider the overall culture of your workplace: how people treat each other, the level of professionalism, the quality of communication, the standard of work.",
+   text:"How much of that culture has been shaped by what your team sees from you and other leaders on a daily basis?",
+   opts:[
+    {t:"I am not sure. I have not thought about it in those terms",sc:1},
+    {t:"A lot. I know that what I do carries more weight than what I say, and I take that seriously",sc:4},
+    {t:"Some of it, but I think the team has largely built the culture among themselves",sc:2},
+    {t:"Honestly, the culture in the organization is not exactly what I would like it to be",sc:0}
+   ]
+  },
+  {sid:"roles",
+   scenario:"Two team members, one from client servicing and one from operations, are both confident that coordinating the final confirmation with a client before an event is the other person's responsibility. The confirmation never happens.",
+   text:"How likely is a situation like this to occur in your organization?",
+   opts:[
+    {t:"Unlikely. There is enough clarity about who owns what that these gaps rarely happen",sc:4},
+    {t:"This kind of thing is fairly common. We often discover a gap only after the problem has already surfaced",sc:0},
+    {t:"It has happened before, though not regularly. A few grey areas exist in certain handoff points",sc:3},
+    {t:"It has happened with some frequency. Work falls through because ownership is often unclear",sc:1}
+   ]
+  },
+  {sid:"roles",
+   scenario:"A staff member, let us call her Ngozi, has been in the organization for eight months. She is diligent and willing, but she keeps delivering work that needs significant rework, and she is surprised each time feedback is given.",
+   text:"What is most likely going on?",
+   opts:[
+    {t:"Truthfully, this sounds familiar. The most likely reason is that nobody sat her down to clearly walk through what her deliverables should look like",sc:0},
+    {t:"It is a skill gap we can identify, because our expectations are documented and clearly communicated to everyone",sc:4},
+    {t:"It is hard to say. We communicate expectations verbally but not always consistently",sc:1},
+    {t:"It is possible she was never clearly shown what good work looks like for her specific role",sc:2}
+   ]
+  },
+  {sid:"roles",
+   scenario:"A team leader is going on leave for two weeks. She briefs her replacement briefly and hands over some files before she goes.",
+   text:"What typically happens to work during that period?",
+   opts:[
+    {t:"Work continues smoothly. Roles are documented and the replacement has enough clarity to carry on",sc:4},
+    {t:"Important things tend to fall apart because too much depends on one person's knowledge and relationships",sc:0},
+    {t:"It depends entirely on how well the outgoing person briefed the replacement. If the briefing was thin, things suffer",sc:1},
+    {t:"A few things get missed or delayed, but the team generally manages through it",sc:2}
+   ]
+  },
+  {sid:"resources",
+   scenario:"Your marketing team wants to run a sponsored campaign. They submitted the request with full details five days ago. The budget has not been released and the campaign window is about to close.",
+   text:"Which of these is closest to how this scenario typically plays out in your organization?",
+   opts:[
+    {t:"It happens fairly often. The team has learned to build in extra time because approvals tend to be slow",sc:1},
+    {t:"It would be unusual. There is a clear process and budget decisions within defined limits move quickly",sc:4},
+    {t:"This is a familiar scenario. The team sometimes has to follow up repeatedly before things move",sc:0},
+    {t:"It happens sometimes. Certain decisions take longer than they should depending on who needs to approve",sc:2}
+   ]
+  },
+  {sid:"resources",
+   scenario:"Think about the small recurring needs in your office: printing supplies, internet data, refreshments for client meetings, basic office items.",
+   text:"How are these typically handled?",
+   opts:[
+    {t:"There is a system. Recurring expenses are planned and available without staff having to make repeated requests",sc:4},
+    {t:"Most things are handled, though certain items require reminders before they are sorted",sc:2},
+    {t:"Getting these things tends to be inconsistent. Sometimes they are available, sometimes the team has to do without",sc:0},
+    {t:"Staff regularly have to remind management or send multiple requests before basic supplies are restocked",sc:1}
+   ]
+  },
+  {sid:"resources",
+   scenario:"One of your developers needs a software license from an external provider to complete a project on time. She submitted the internal approval request four days ago. The deadline is tomorrow.",
+   text:"What is she most likely experiencing right now?",
+   opts:[
+    {t:"She is probably anxious. These approvals take time and she is not confident it will come before the deadline",sc:1},
+    {t:"She may have already started working around the problem or flagged a possible delay to the client",sc:0},
+    {t:"She is probably fine. Internal approvals are handled quickly so she likely already has what she needs",sc:4},
+    {t:"She is probably following up once or twice. It will likely come through, just not as fast as it should",sc:2}
+   ]
+  },
+  {sid:"innovation",
+   scenario:"A junior staff member, just three months in the organization, has an idea for how to improve a process that has been slowing the team down. She is not sure whether to raise it.",
+   text:"Based on the culture in your organization, what is she most likely to do?",
+   opts:[
+    {t:"Raise it. The culture makes it clear that ideas are welcome regardless of how long someone has been here",sc:4},
+    {t:"Keep it to herself. She does not feel it is her place as someone new",sc:1},
+    {t:"She would have no way of knowing how to raise it even if she wanted to",sc:0},
+    {t:"Mention it quietly to her direct manager and hope it gets passed up",sc:2}
+   ]
+  },
+  {sid:"innovation",
+   scenario:"A key project is being organized and you need to form a small committee to plan and execute it.",
+   text:"How do you typically decide who is on that committee?",
+   opts:[
+    {t:"It tends to fall to whoever volunteers or whoever management thinks of first",sc:0},
+    {t:"Management decides and assigns people. There is not much of a structured process for it",sc:2},
+    {t:"Seniority and availability guide the decision. The same familiar people tend to be involved",sc:1},
+    {t:"We deliberately mix it up. People at different levels and across departments get the opportunity to contribute",sc:4}
+   ]
+  },
+  {sid:"innovation",
+   scenario:"Think about how your team engages with their work beyond just completing tasks: initiative, creativity, going beyond what they were asked to do.",
+   text:"What best describes what you observe most of the time?",
+   opts:[
+    {t:"Initiative is common. People regularly bring ideas, flag problems early, and take ownership without being asked",sc:4},
+    {t:"Most people do what is assigned and wait for direction. Going beyond the brief is rare",sc:1},
+    {t:"Initiative is inconsistent. Some months the team is very engaged, other months energy is low",sc:0},
+    {t:"A few individuals show strong initiative, but it is not something the majority of the team demonstrates",sc:2}
+   ]
+  },
+  {sid:"profdev",
+   scenario:"A high-performing team member comes to you and says she feels like she has reached a ceiling in her current role. She is not sure what the next step looks like for her in the organization.",
+   text:"What does your organization currently have to offer her?",
+   opts:[
+    {t:"A clear conversation, a defined career pathway, and a plan for what her growth in this organization could look like",sc:4},
+    {t:"We do not have anything formal in place for this. People generally figure out their own next steps",sc:0},
+    {t:"Encouragement and a general commitment to support her, but without a specific structure or plan",sc:2},
+    {t:"Honestly, this is a difficult conversation to have because we have not mapped out career progression clearly",sc:1}
+   ]
+  },
+  {sid:"profdev",
+   scenario:"A team member is going through a difficult personal period. It is affecting their concentration and output at work, though they have not said anything directly.",
+   text:"How does your organization typically respond to situations like this?",
+   opts:[
+    {t:"We would likely not notice unless the performance issue became disruptive",sc:1},
+    {t:"A manager would notice and check in privately. We pay attention to the person, not just the output",sc:4},
+    {t:"We do not have a culture of checking in on staff beyond their work deliverables",sc:0},
+    {t:"The dip in performance would be addressed, but the personal dimension would not usually be explored",sc:2}
+   ]
+  },
+  {sid:"profdev",
+   scenario:"You are thinking about the last six months in your organization.",
+   text:"What intentional investment has been made in building the skills, capabilities, or knowledge of your team members?",
+   opts:[
+    {t:"We have had structured training or development programs: workshops, courses, coaching, or similar",sc:4},
+    {t:"Nothing has been organized. Development has mostly been left to individuals to pursue on their own",sc:0},
+    {t:"We have talked about doing something but have not gotten around to it yet",sc:1},
+    {t:"We have had informal knowledge sharing or on-the-job learning, but nothing structured",sc:2}
+   ]
+  },
+  {sid:"standards",
+   scenario:"A new staff member asks you directly: how will I know if I am doing a good job here?",
+   text:"What can you hand to her or point her to right now?",
+   opts:[
+    {t:"Honestly, this would be a difficult question to answer clearly with what we currently have",sc:0},
+    {t:"A documented standard or checklist specific to her role, with clear benchmarks for quality and delivery",sc:4},
+    {t:"A conversation with her line manager. Most of our standards live in people's heads rather than on paper",sc:1},
+    {t:"Her job description and some past examples of good work. She would need to use her judgment to fill in the gaps",sc:2}
+   ]
+  },
+  {sid:"standards",
+   scenario:"Your organization has a specific way that proposals should be structured and formatted before they go to clients.",
+   text:"If you reviewed five proposals sent by different team members this week, what would you most likely find?",
+   opts:[
+    {t:"We do not have a standard proposal format. Each person does it the way they think is best",sc:0},
+    {t:"There would be significant variation. Each person has their own interpretation of what a proposal should look like",sc:1},
+    {t:"They would be largely consistent. People follow the format and quality is at a similar level across the team",sc:4},
+    {t:"Most would follow the format, but a few would have notable differences in structure or quality",sc:2}
+   ]
+  },
+  {sid:"standards",
+   scenario:"You ask everyone in the marketing team to submit a content calendar for the coming month. Kemi, the content manager, submits hers two days before the deadline. Others submit on the last day or a day after.",
+   text:"In the moment that Kemi submits, how would you typically respond?",
+   opts:[
+    {t:"I would acknowledge her submission specifically and publicly in the moment, making it clear that she submitted ahead of others and why that matters",sc:4},
+    {t:"I would send a general thank you to the whole team once all submissions are in",sc:2},
+    {t:"I would note it privately and may bring it up at a review session later in the month",sc:1},
+    {t:"Once everyone has submitted I focus on the content itself. I would not usually comment on the timing",sc:0}
+   ]
+  },
+  {sid:"tracking",
+   scenario:"At your last team meeting, three action items were agreed with owners and deadlines assigned. That was ten days ago.",
+   text:"What is the most accurate description of where those action items are right now?",
+   opts:[
+    {t:"I know the status of all three. We track these between meetings and follow up before deadlines",sc:4},
+    {t:"If I am honest, I have not followed up and I cannot be sure they were all completed",sc:0},
+    {t:"I am not sure. I would need to send messages to find out where things stand",sc:1},
+    {t:"I know the status of one or two. I would need to check on the third",sc:2}
+   ]
+  },
+  {sid:"tracking",
+   scenario:"You told your sales team to follow up with three warm leads last week. No specific deadline was given.",
+   text:"What most accurately describes what happened after that?",
+   opts:[
+    {t:"I asked for an update during the week and we discussed the outcome of each follow-up",sc:4},
+    {t:"I would need to check. Some of those follow-ups may not have happened",sc:2},
+    {t:"I assumed it was handled but I did not specifically ask about it",sc:1},
+    {t:"This is a pattern for us. Things that are said without a specific follow-up structure often do not get done",sc:0}
+   ]
+  },
+  {sid:"tracking",
+   scenario:"Your organization has a process for how customer complaints should be escalated and resolved. A complaint came in last Tuesday.",
+   text:"If you checked on it right now, how confident are you that the process was followed correctly?",
+   opts:[
+    {t:"Fairly confident. The process is known, but I would need to verify whether it was followed in this case",sc:2},
+    {t:"Somewhat confident. It depends on who handled it and whether that person knew the process well",sc:1},
+    {t:"Not very confident. Follow-through on processes like this is inconsistent in our organization",sc:0},
+    {t:"Very confident. We track these and there is clear visibility into how complaints are handled",sc:4}
+   ]
+  },
+  {sid:"consequences",
+   scenario:"Two team members are given the same assignment. One delivers it ahead of schedule with thorough, well-structured work. The other delivers late and the work needs significant corrections.",
+   text:"What typically happens after both deliverables come in?",
+   opts:[
+    {t:"There is a clear difference in how both situations are handled. Strong work is recognized and underperformance is addressed",sc:4},
+    {t:"In practice, the same cycle tends to repeat. The same people deliver well or poorly without much changing",sc:0},
+    {t:"The strong performance may be noted verbally, but the underperformance tends not to be formally addressed",sc:2},
+    {t:"Both deliverables are corrected and the team moves on. Performance differences are not always explicitly managed",sc:1}
+   ]
+  },
+  {sid:"consequences",
+   scenario:"A staff member who has been missing deadlines and delivering below standard for two consecutive months comes to ask about a pay raise.",
+   text:"How would this conversation most likely be handled in your organization?",
+   opts:[
+    {t:"I would raise the performance concerns verbally in the conversation but without documentation to back it up",sc:2},
+    {t:"This would be awkward because performance has not been tracked or addressed before this moment",sc:0},
+    {t:"The conversation would be structured. Performance data would be on the table and would guide the discussion",sc:4},
+    {t:"I would delay or redirect the conversation. These kinds of discussions are uncomfortable and tend not to happen directly",sc:1}
+   ]
+  },
+  {sid:"consequences",
+   scenario:"Think about someone on your team who consistently performs well: always reliable, always delivers quality work, always a positive presence.",
+   text:"What does that person currently receive in return for that consistency?",
+   opts:[
+    {t:"Recognition that is specific, timely, and deliberate. They know their contribution is seen and valued, not just at appraisal time",sc:4},
+    {t:"General appreciation when something exceptional happens, but nothing structured or regular",sc:2},
+    {t:"Mostly the same treatment as everyone else. Their reliability is appreciated but not specifically recognized",sc:1},
+    {t:"Honestly, there is a real risk they feel taken for granted. Consistent performance can become invisible over time",sc:0}
+   ]
+  }
+];
+
+const FB={
+  vision:{
+    high:{note:"Your team has a shared sense of where you are going and why. This is a strong foundation that most organizations lack.",action:"Continue reinforcing the vision in different formats: team meetings, written updates, and one-on-one conversations. The goal is that it never feels like background noise."},
+    mid:{note:"There is some awareness of direction, but it is not consistently alive in day-to-day work. Your team may know the mission on paper without feeling truly connected to it.",action:"Start by communicating the vision in your next team meeting in concrete, human terms. Describe what success looks like when everyone is doing their part. Do this at least monthly."},
+    low:{note:"Your team is largely operating without a shared sense of direction or purpose. This makes it very difficult to align effort, make good decisions, or attract and retain the right people.",action:"Before anything else, articulate a vision your team can actually hold onto. One clear, inspiring sentence about where the organization is headed. Then communicate it repeatedly in simple language."}
+  },
+  leadership:{
+    high:{note:"Your team sees leadership being lived, not just declared. That is one of the most powerful drivers of culture and performance.",action:"Identify one area where your modeling has been inconsistent, even if small, and correct it deliberately. Leadership credibility is built in the small moments."},
+    mid:{note:"There are gaps between what leadership expects and what leadership demonstrates. Your team notices these gaps even when nothing is said.",action:"Pick one specific standard you hold your team to and commit to visibly holding yourself to the same standard for the next 30 days. Let the team see it."},
+    low:{note:"The expectations you set are being undermined by what the team observes in practice. No policy or instruction can override what people see leadership doing.",action:"Have an honest conversation with yourself about the two or three areas where your behavior does not match your expectations. Start with one of them. Change is visible and the team will notice quickly."}
+  },
+  roles:{
+    high:{note:"People in your organization know what they are doing, who owns what, and who to go to when something needs resolving. This prevents a significant amount of wasted time and avoidable conflict.",action:"Review roles when teams grow or restructure. Role clarity erodes naturally over time and needs to be refreshed, not assumed."},
+    mid:{note:"There is general clarity but grey areas are creating gaps. Work is falling through in specific places even if the overall structure holds.",action:"Identify the two or three handoff points in your organization where things most often fall through. Map out who owns what at those exact points and communicate it explicitly to the people involved."},
+    low:{note:"A significant amount of your team's time and energy is being lost to confusion about who is responsible for what. This also creates frustration that quietly affects morale.",action:"Start with an organizational chart that maps who reports to who. Then go one level deeper: for your most important recurring deliverables, document who is responsible, who supports, and who is accountable for the outcome."}
+  },
+  resources:{
+    high:{note:"Your team generally has what they need to work. This is often underappreciated but it directly affects morale, trust, and the quality of output.",action:"Check in with team leads quarterly to identify any emerging resource gaps before they become bottlenecks. Ask what is slowing people down that you may not be aware of."},
+    mid:{note:"Some resource delays are creating unnecessary friction. Even if the work eventually gets done, the struggle to access what is needed sends a message about how much leadership trusts and values the team.",action:"Identify the top two or three recurring resource requests that consistently take too long. Create a clearer, faster process for those specific items and delegate approval authority where possible."},
+    low:{note:"Your team is spending energy fighting for basic tools and resources instead of directing that energy toward the actual work. This is a significant drain on morale and productivity.",action:"Meet with department heads this week and ask one question: what do your people need to do their work that they currently have to struggle to get? Then address the top two answers within 14 days."}
+  },
+  innovation:{
+    high:{note:"Your organization is creating the conditions for people to think, contribute, and go beyond their job description. This is a significant competitive advantage.",action:"Build a simple channel for capturing ideas from across the team, not just from managers. Ideas from junior staff should have a clear path to being reviewed and responded to."},
+    mid:{note:"Some people in your organization take initiative, but it is not the norm. The culture has not fully unlocked the creative and problem-solving capacity that exists in your team.",action:"Deliberately involve people from different levels in your next major decision or project. Ask openly in a team meeting what could be done better. Then actually respond to what comes up."},
+    low:{note:"Your team is operating largely in execution mode. People are doing what they are told and waiting for direction. The environment may not feel safe or open enough for initiative to thrive.",action:"At your next team meeting, share one area where the organization needs fresh thinking and invite responses. Make it clear that ideas from anyone are welcome. Follow through by responding to what is shared."}
+  },
+  profdev:{
+    high:{note:"Your organization is investing in people, not just output. This is one of the most effective things you can do to retain talent and build long-term performance.",action:"Review your development programs every six months. Ask your team what skills they most need to build and check whether your current programs are meeting those needs."},
+    mid:{note:"There is some investment in development but it is not consistent or structured enough to make a lasting difference. Some people on your team are likely wondering whether this is a place where they can grow.",action:"Identify your two or three highest-potential team members and have a direct conversation with each of them about their career pathway. Then look at what your organization can do to support the next step."},
+    low:{note:"Your team members are largely left to figure out their own growth. Over time, this leads to stagnation, disengagement, and eventual turnover of your best people.",action:"Start with something simple: identify one skill or capability gap on your team and find a structured way to address it in the next 60 days. A short workshop, an online course, or a coaching conversation is a strong first step."}
+  },
+  standards:{
+    high:{note:"Your team knows what good looks like and can measure their own work against a clear benchmark. This creates consistency, reduces rework, and makes quality conversations easier.",action:"Review your standards annually. As the organization grows and the work evolves, standards that once served you well may need to be updated."},
+    mid:{note:"Standards exist in some form but they are not consistently known or applied across the team. Some people are working to a clear benchmark while others are relying on guesswork.",action:"Pick one key deliverable in your organization and create a one-page standard for it: what it must include, what quality looks like, and what the common errors to avoid are. Share it with the team."},
+    low:{note:"Without clear standards, quality becomes a matter of opinion and feedback feels personal rather than professional. Your team cannot consistently meet expectations that have not been clearly defined.",action:"Before your next performance conversation, document the standard for one role or one deliverable. Even a half-page checklist changes the nature of the conversation and makes expectations fair and visible."}
+  },
+  tracking:{
+    high:{note:"Work that is agreed is actually followed up on. This is rarer than it should be and makes a significant difference to how seriously your team takes commitments.",action:"Maintain this discipline as the team grows. The systems that work for a team of ten may need to be adjusted for a team of twenty. Review your tracking approach every time you hire significantly."},
+    mid:{note:"Some things are tracked and followed up on but gaps are emerging. The team is learning which commitments will be checked and which ones can be left.",action:"For your next three team meetings, track every action item in a shared document with owners and dates. Review it at the start of the following meeting. Do this consistently for a month and observe what changes."},
+    low:{note:"Commitments made in your organization are frequently not followed through on, and the team has likely adjusted their behavior accordingly. What is not checked on is not being done.",action:"Start with one simple discipline: at the end of every team meeting, write down the three most important action items, who owns each, and when they are due. Check on each one before the next meeting."}
+  },
+  consequences:{
+    high:{note:"Your organization connects behavior to outcomes. People know that doing well has a payoff and that falling short has a consequence. This is one of the most powerful drivers of sustained performance.",action:"Review your recognition practices. Is recognition specific, timely, and public? Generic or delayed recognition loses its power. Make sure your approach tells people exactly what they did and why it mattered."},
+    mid:{note:"Recognition happens but is not consistent or structured. Strong performance goes unnoticed more often than it should and underperformance is sometimes left unaddressed. Over time this erodes the motivation of your best people.",action:"Introduce one specific recognition practice that happens in the moment: a shout-out in a team meeting, a brief message in a shared channel, or a direct call acknowledging a strong delivery. Do it for one person this week."},
+    low:{note:"In the absence of recognition and consequences, the message your team is receiving is that performance does not matter. Your strongest performers are the most affected because they are delivering without any signal that it is noticed.",action:"Identify the one person on your team who has been quietly performing well and has not been specifically recognized. Acknowledge them this week, publicly, with specifics. Then identify who has been underperforming without a conversation and plan that conversation."}
+  }
+};
+
+function scoreOf(i){return questions[i].opts[S.answers[i]].sc;}
+function calcScores(){
+  const tot={},cnt={};
+  sections.forEach(s=>{tot[s.id]=0;cnt[s.id]=0;});
+  questions.forEach((q,i)=>{if(S.answers[i]!==undefined){tot[q.sid]+=scoreOf(i);cnt[q.sid]++;}});
+  const out={};
+  sections.forEach(s=>{const m=cnt[s.id]*4;out[s.id]=m?Math.round((tot[s.id]/m)*100):0;});
+  return out;
+}
+function gc(v){
+  if(v>=70)return{bg:"#EAF3DE",bar:"#639922",txt:"#3B6D11",bdg:"#C0DD97",bdgT:"#3B6D11"};
+  if(v>=40)return{bg:"#FAEEDA",bar:"#BA7517",txt:"#854F0B",bdg:"#FAC775",bdgT:"#854F0B"};
+  return{bg:"#FCEBEB",bar:"#E24B4A",txt:"#A32D2D",bdg:"#F7C1C1",bdgT:"#A32D2D"};
+}
+function gt(v){return v>=70?"high":v>=40?"mid":"low";}
+
+let S={screen:"cover",qi:0,answers:{},lead:{},scores:{},overall:0};
+
+function render(){
+  const app=document.getElementById("app");
+  if(S.screen==="cover"){
+    app.innerHTML=`<div class="cover">
+      <div class="brand-top">${CO_NAME}</div>
+      <div class="tag">Free Assessment &middot; No Sign-up Required</div>
+      <h1>Organizational Performance Health Assessment</h1>
+      <p>27 scenario-based questions that reveal what is really shaping performance in your organization. Takes about 8 minutes.</p>
+      <button class="start-btn" onclick="go('q')">Begin Assessment</button>
+      <p class="free-note">Designed for founders, CEOs, and organizational leaders</p>
+    </div>`;return;
+  }
+  if(S.screen==="q"){
+    const q=questions[S.qi];
+    const pct=Math.round((S.qi/questions.length)*100);
+    const ans=S.answers[S.qi];
+    const sec=sections.find(s=>s.id===q.sid);
+    app.innerHTML=`
+      <div class="pb-wrap"><div class="pb" style="width:${pct}%"></div></div>
+      <div class="sec-label">${sec.label}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="scenario">${q.scenario}</div>
+      <div class="opts">${q.opts.map((o,i)=>`
+        <div class="opt${ans===i?' sel':''}" onclick="pick(${i})">
+          <div class="radio"></div>
+          <div class="opt-txt">${o.t}</div>
+        </div>`).join("")}</div>
+      <div class="nav">
+        <button class="nbtn pbtn" onclick="prev()" ${S.qi===0?'style="visibility:hidden"':''}>Back</button>
+        <span class="qcnt">${S.qi+1} of ${questions.length}</span>
+        <button class="nbtn nxbtn" id="nxb" onclick="nxt()" ${ans===undefined?'disabled':''}>
+          ${S.qi===questions.length-1?'See My Results':'Next'}
+        </button>
+      </div>`;return;
+  }
+  if(S.screen==="lead"){
+    app.innerHTML=`<div class="lead-form">
+      <h2>Almost there</h2>
+      <p class="lead-sub">Enter your details to access your personalized Performance Health Report. We will not share your information with third parties.</p>
+      <div class="field"><label>Full name</label><input type="text" id="fn" placeholder="e.g. Adaeze Okonkwo" value="${S.lead.name||''}"></div>
+      <div class="field"><label>Your role or title</label><input type="text" id="fr" placeholder="e.g. CEO, Founder, Managing Director" value="${S.lead.role||''}"></div>
+      <div class="field"><label>Organization name</label><input type="text" id="fo" placeholder="e.g. Brightedge Nigeria Limited" value="${S.lead.org||''}"></div>
+      <div class="field"><label>Corporate email address</label><input type="email" id="fe" placeholder="e.g. adaeze@brightedge.com" value="${S.lead.email||''}"></div>
+      <div class="field"><label>Phone number</label><input type="tel" id="fp" placeholder="e.g. 08012345678" value="${S.lead.phone||''}"></div>
+      <div id="lerr" class="err" style="display:none"></div>
+      <button class="submit-btn" onclick="submitLead()">View My Results</button>
+      <p class="privacy">Your details are confidential and used only to send you relevant resources from ${CO_NAME}.</p>
+    </div>`;return;
+  }
+  if(S.screen==="results"){
+    const sc=S.scores;const overall=S.overall;
+    const oc=gc(overall);const tier=gt(overall);
+    const omsg={
+      high:"Your organization has solid performance foundations across most areas. The highlighted gaps below are worth deliberate attention. They are likely the difference between a good organization and a genuinely great one.",
+      mid:"There are real strengths here, but your results reveal structural and behavioral patterns that are quietly limiting what your team can deliver. These are not people problems. They are conditions problems, and conditions can be redesigned.",
+      low:"Your results point to meaningful gaps in the environment and structures your team needs to perform consistently. The encouraging part is that most of what is holding your organization back is fixable. These are systems issues, not character issues."
+    };
+    app.innerHTML=`<div class="rpage" id="rc">
+      <div style="margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:0.5px solid var(--color-border-tertiary)">
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-primary)">${CO_NAME}</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px">Organizational Performance Health Assessment</div>
+      </div>
+      <h2>Your Performance Health Report</h2>
+      <p class="rsub">Completed by <strong style="font-weight:500">${S.lead.name}</strong> &middot; ${S.lead.role} &middot; ${S.lead.org}</p>
+      <div class="overall-card">
+        <div class="sring" style="background:${oc.bg}">
+          <span class="snum" style="color:${oc.txt}">${overall}</span>
+          <span class="slbl">of 100</span>
+        </div>
+        <div class="otxt">${omsg[tier]}</div>
+      </div>
+      <div class="dim-list">
+        ${sections.map(s=>{
+          const v=sc[s.id];const c=gc(v);const t=gt(v);const fb=FB[s.id][t];
+          return `<div class="dc">
+            <div class="dtop"><span class="dname">${s.label}</span><span class="dbadge" style="background:${c.bdg};color:${c.bdgT}">${v}%</span></div>
+            <div class="barbg"><div class="barfill" style="width:${v}%;background:${c.bar}"></div></div>
+            <div class="dnote">${fb.note}</div>
+            <div class="daction"><span class="daction-lbl">One step to take now</span>${fb.action}</div>
+          </div>`;
+        }).join("")}
+      </div>
+      <div class="cta-box">
+        <h3>Ready to close these gaps?</h3>
+        <p>${CO_NAME} helps founders and leadership teams translate findings like these into concrete improvements, from structural redesign to targeted capability development for your team.</p>
+        <div class="cta-row">
+          <button class="cta-pri" onclick="dlResult()">Download My Report</button>
+          <button class="cta-sec" onclick="contactUs()">Talk to our team</button>
+        </div>
+      </div>
+      <div class="rfooter">
+        <div class="rfooter-name">${CO_NAME}</div>
+        <div class="rfooter-desc">${CO_DESC}</div>
+        <div class="rfooter-contact">${CO_WEB} &middot; ${CO_EMAIL}</div>
+      </div>
+      <div style="text-align:center;margin-top:1rem">
+        <button onclick="restart()" style="font-size:13px;color:var(--color-text-secondary);background:none;border:none;cursor:pointer;text-decoration:underline">Retake assessment</button>
+      </div>
+    </div>`;
+  }
+}
+
+function go(s){S.screen=s;render();}
+function pick(i){
+  S.answers[S.qi]=i;
+  document.querySelectorAll(".opt").forEach((el,j)=>el.classList.toggle("sel",j===i));
+  const nb=document.getElementById("nxb");if(nb)nb.disabled=false;
+}
+function nxt(){
+  if(S.answers[S.qi]===undefined)return;
+  if(S.qi===questions.length-1){S.screen="lead";render();}
+  else{S.qi++;render();}
+}
+function prev(){if(S.qi>0){S.qi--;render();}}
+function submitLead(){
+  const name=document.getElementById("fn").value.trim();
+  const role=document.getElementById("fr").value.trim();
+  const org=document.getElementById("fo").value.trim();
+  const email=document.getElementById("fe").value.trim();
+  const phone=document.getElementById("fp").value.trim();
+  const err=document.getElementById("lerr");
+  if(!name||!role||!org||!email||!phone){err.style.display="block";err.textContent="Please complete all fields before continuing.";return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.style.display="block";err.textContent="Please enter a valid email address.";return;}
+  err.style.display="none";
+  S.lead={name,role,org,email,phone};
+  S.scores=calcScores();
+  const vals=Object.values(S.scores);
+  S.overall=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+  sendToSheets();
+  S.screen="results";render();
+}
+function sendToSheets(){
+  if(SHEET_URL==="YOUR_APPS_SCRIPT_WEB_APP_URL")return;
+  const sc=S.scores;
+  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+    timestamp:new Date().toISOString(),name:S.lead.name,role:S.lead.role,org:S.lead.org,
+    email:S.lead.email,phone:S.lead.phone,overall:S.overall,
+    vision:sc.vision,leadership:sc.leadership,roles:sc.roles,resources:sc.resources,
+    innovation:sc.innovation,profdev:sc.profdev,standards:sc.standards,
+    tracking:sc.tracking,consequences:sc.consequences
+  })}).catch(()=>{});
+}
+function contactUs(){
+  window.location.href="mailto:"+CO_EMAIL+"?subject=Performance Health Assessment Results&body=Hello Bridge the Breach team,%0A%0AI just completed the Organizational Performance Health Assessment and I would like to discuss my results with your team.%0A%0AName: "+encodeURIComponent(S.lead.name)+"%0AOrganization: "+encodeURIComponent(S.lead.org);
+}
+function dlResult(){
+  const sc=S.scores;const overall=S.overall;
+  const date=new Date().toLocaleDateString("en-NG",{year:"numeric",month:"long",day:"numeric"});
+  const bh=(v)=>v>=70?"#EAF3DE":v>=40?"#FAEEDA":"#FCEBEB";
+  const brt=(v)=>v>=70?"#639922":v>=40?"#BA7517":"#E24B4A";
+  const btt=(v)=>v>=70?"#3B6D11":v>=40?"#854F0B":"#A32D2D";
+  const tier=(v)=>v>=70?"high":v>=40?"mid":"low";
+  const oc=gc(overall);
+  const rows=sections.map(s=>{
+    const v=sc[s.id];const t=tier(v);const fb=FB[s.id][t];
+    return `<tr>
+      <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;font-weight:500;width:180px;vertical-align:top;color:#1a1a1a">${s.label}</td>
+      <td style="padding:10px 12px;border-bottom:1px solid #eee;width:60px;vertical-align:top;text-align:center">
+        <span style="background:${bh(v)};color:${btt(v)};padding:3px 8px;border-radius:99px;font-weight:500;font-size:12px">${v}%</span>
+      </td>
+      <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#444;vertical-align:top;line-height:1.6">${fb.note}</td>
+      <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:12px;color:#333;vertical-align:top;line-height:1.6;border-left:2px solid #e0e0e0"><span style="display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#888;font-weight:600;margin-bottom:3px">One step to take now</span>${fb.action}</td>
+    </tr>`;
+  }).join("");
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Performance Health Report - ${S.lead.org}</title></head>
+<body style="font-family:Arial,sans-serif;color:#1a1a1a;margin:0;padding:48px;max-width:960px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+    <div>
+      <div style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:2px">${CO_NAME}</div>
+      <div style="font-size:11px;font-weight:600;color:#888;letter-spacing:.07em;text-transform:uppercase">Organizational Performance Health Report</div>
+    </div>
+    <div style="text-align:right;font-size:12px;color:#888;padding-top:4px">${date}</div>
+  </div>
+  <div style="height:3px;background:#1a1a1a;margin:14px 0 20px;border-radius:2px"></div>
+  <div style="font-size:13px;color:#555;margin-bottom:28px">Completed by <strong style="color:#1a1a1a">${S.lead.name}</strong> &middot; ${S.lead.role} &middot; ${S.lead.org}</div>
+  <div style="background:#f7f6f2;border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:22px;margin-bottom:32px">
+    <div style="width:68px;height:68px;border-radius:50%;background:${bh(overall)};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+      <span style="font-size:22px;font-weight:700;color:${btt(overall)}">${overall}</span>
+      <span style="font-size:10px;color:#888;margin-top:1px">of 100</span>
+    </div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:5px">Overall Performance Health Score</div>
+      <div style="font-size:13px;color:#444;line-height:1.65">This score reflects the strength of the structural and behavioral conditions in your organization that either enable or limit sustained high performance.</div>
+    </div>
+  </div>
+  <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:12px">Dimension Breakdown and Recommended Actions</div>
+  <table style="width:100%;border-collapse:collapse;margin-bottom:40px">
+    <thead><tr style="background:#f0efe9">
+      <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;letter-spacing:.05em;color:#555;width:180px">Dimension</th>
+      <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:center;letter-spacing:.05em;color:#555;width:60px">Score</th>
+      <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;letter-spacing:.05em;color:#555">Assessment</th>
+      <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;letter-spacing:.05em;color:#555">Recommended Next Step</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>
+  <div style="border-top:2px solid #1a1a1a;padding-top:20px;margin-top:8px">
+    <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:5px">${CO_NAME}</div>
+    <div style="font-size:12px;color:#555;line-height:1.65;margin-bottom:6px;max-width:640px">${CO_DESC}</div>
+    <div style="font-size:12px;color:#888">${CO_WEB} &middot; ${CO_EMAIL}</div>
+  </div>
+</body></html>`;
+  const blob=new Blob([html],{type:"text/html"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=`Bridge-the-Breach-Performance-Report-${S.lead.org.replace(/\s+/g,"-")}.html`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function restart(){S={screen:"cover",qi:0,answers:{},lead:{},scores:{},overall:0};render();}
+render();
+</script>
