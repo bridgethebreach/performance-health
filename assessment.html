@@ -289,7 +289,7 @@ function submitLead(){
 }
 
 function sendToSheets(){
-  if(SHEET_URL==="https://script.google.com/macros/s/AKfycbz5Rq3QcMeJi19uEgr-WK1jWlwWuYJo5DDZ3m4sFQOuQV5mdJ43s6ZnIXMzKlVQfN4Q/exec")return;
+  if(SHEET_URL==="YOUR_APPS_SCRIPT_WEB_APP_URL")return;
   const sc=S.scores;
   const payload=JSON.stringify({timestamp:new Date().toISOString(),name:S.lead.name,role:S.lead.role,org:S.lead.org,email:S.lead.email,phone:S.lead.phone,overall:S.overall,vision:sc.vision,leadership:sc.leadership,roles:sc.roles,resources:sc.resources,innovation:sc.innovation,profdev:sc.profdev,standards:sc.standards,tracking:sc.tracking,consequences:sc.consequences});
   const form=document.createElement("form");
