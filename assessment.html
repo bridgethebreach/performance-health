@@ -291,15 +291,16 @@ function submitLead(){
 function sendToSheets(){
   if(SHEET_URL==="YOUR_APPS_SCRIPT_WEB_APP_URL")return;
   const sc=S.scores;
-  const payload=JSON.stringify({timestamp:new Date().toISOString(),name:S.lead.name,role:S.lead.role,org:S.lead.org,email:S.lead.email,phone:S.lead.phone,overall:S.overall,vision:sc.vision,leadership:sc.leadership,roles:sc.roles,resources:sc.resources,innovation:sc.innovation,profdev:sc.profdev,standards:sc.standards,tracking:sc.tracking,consequences:sc.consequences});
-  const form=document.createElement("form");
-  form.method="POST";form.action=SHEET_URL;form.target="hidden_iframe";form.style.display="none";
-  const input=document.createElement("input");input.type="hidden";input.name="data";input.value=payload;
-  form.appendChild(input);
-  const iframe=document.createElement("iframe");iframe.name="hidden_iframe";iframe.style.display="none";
-  document.body.appendChild(iframe);document.body.appendChild(form);
-  form.submit();
-  setTimeout(()=>{form.remove();iframe.remove();},3000);
+  const params=new URLSearchParams({
+    timestamp:new Date().toISOString(),
+    name:S.lead.name,role:S.lead.role,org:S.lead.org,
+    email:S.lead.email,phone:S.lead.phone,overall:String(S.overall),
+    vision:String(sc.vision),leadership:String(sc.leadership),roles:String(sc.roles),
+    resources:String(sc.resources),innovation:String(sc.innovation),profdev:String(sc.profdev),
+    standards:String(sc.standards),tracking:String(sc.tracking),consequences:String(sc.consequences)
+  });
+  const img=new Image();
+  img.src=SHEET_URL+"?"+params.toString();
 }
 
 function contactUs(){
